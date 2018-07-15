@@ -3,7 +3,7 @@ package main
 import (
   "fmt"
   "testing"
-  "github.com/lucasdc6/basic-api/peeringdb/api"
+  "github.com/lucasdc6/internet-topology/peeringdb/api"
 )
 
 func TestQueries(t *testing.T) {

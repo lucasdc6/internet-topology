@@ -5,7 +5,7 @@ import (
   "net/http"
   "io/ioutil"
   "encoding/json"
-  "github.com/lucasdc6/basic-api/peeringdb/types"
+  "github.com/lucasdc6/internet-topology/peeringdb/types"
 )
 
 func GetAsn(id int64) (asn types.NetworkBody, error error) {
