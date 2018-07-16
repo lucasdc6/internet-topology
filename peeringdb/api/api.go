@@ -8,8 +8,10 @@ import (
   "github.com/lucasdc6/internet-topology/peeringdb/types"
 )
 
-func GetAsn(id int64) (asn types.NetworkBody, error error) {
-  url := fmt.Sprintf("https://peeringdb.com/api/net?asn=%d", id)
+// Private function
+// Get from url and put data in res
+// Return only error
+func getGeneric(url string, res interface{}) (error error) {
   resp, err := http.Get(url)
   if err != nil {
     error = err
@@ -22,57 +24,31 @@ func GetAsn(id int64) (asn types.NetworkBody, error error) {
     error = err
   }
 
-  err = json.Unmarshal([]byte(body), &asn)
+  err = json.Unmarshal([]byte(body), &res)
 
   if err != nil {
     error = err
   }
 
+  return error
+}
+
+
+// Public api
+func GetAsn(id int64) (asn types.NetworkBody, error error) {
+  url := fmt.Sprintf("https://peeringdb.com/api/net?asn=%d", id)
+  error = getGeneric(url, &asn)
   return asn, error
 }
 
 func GetNetwork(id int64) ( network types.NetworkBody, error error) {
   url := fmt.Sprintf("https://peeringdb.com/api/net/%d", id)
-  resp, err := http.Get(url)
-  if err != nil {
-    error = err
-  }
-
-  defer resp.Body.Close()
-  body, err := ioutil.ReadAll(resp.Body)
-
-  if err != nil {
-    error = err
-  }
-
-  err = json.Unmarshal([]byte(body), &network)
-
-  if err != nil {
-    error = err
-  }
-
+  error = getGeneric(url, &network)
   return network, error
 }
 
 func GetIx(id int64) (ix types.IxBody, error error) {
   url := fmt.Sprintf("https://peeringdb.com/api/ix/%d", id)
-  resp, err := http.Get(url)
-  if err != nil {
-    error = err
-  }
-
-  defer resp.Body.Close()
-  body, err := ioutil.ReadAll(resp.Body)
-
-  if err != nil {
-    error = err
-  }
-
-  err = json.Unmarshal([]byte(body), &ix)
-
-  if err != nil {
-    error = err
-  }
-
+  error = getGeneric(url, &ix)
   return ix, error
 }
