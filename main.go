@@ -15,7 +15,7 @@ func main() {
   // Parse
   getopt.Parse()
 
-  if *optHelp {
+  if len(os.Args) < 2 || *optHelp {
     getopt.Usage()
     os.Exit(0)
   }
