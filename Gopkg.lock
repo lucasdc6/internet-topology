@@ -43,11 +43,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d93498f9f97749bc88354e36a2c572a97503164f92223aabd166dc3505d75c9a"
+  digest = "1:03f6f430c25614089460bd1531c21edc10ba3971fa3362995a18dabbd16da705"
   name = "github.com/pborman/getopt"
   packages = ["v2"]
   pruneopts = "UT"
-  revision = "6fdd0a2c7117b8bf64aa17da3f5848e552cb876d"
+  revision = "2b5b3bfb099b7da3e2f433966f8ab1d5803e0876"
 
 [[projects]]
   digest = "1:92d68f6e77198b5da8d32e13283d75d2ba4fe01f369bc63cdf48c77cc138bfaf"
@@ -74,7 +74,7 @@
     "pkcs12/internal/rc2",
   ]
   pruneopts = "UT"
-  revision = "f027049dab0ad238e394a753dba2d14753473a04"
+  revision = "aabede6cba87e37f413b3e60ebfc214f8eeca1b0"
 
 [[projects]]
   digest = "1:c06d9e11d955af78ac3bbb26bd02e01d2f61f689e1a3bce2ef6fb683ef8a7f2d"
