@@ -17,6 +17,7 @@ func main() {
   optSilent := getopt.BoolLong("silent", 's', "Set silent mode.")
   optAsn := getopt.IntLong("asn", 0, -1, "Set AS number")
   optIx := getopt.BoolLong("ix", 'i', "Show IX connections")
+  optPeers := getopt.BoolLong("peers", 'p', "Show Peers connections")
   optHelp := getopt.BoolLong("help", 'h', "Show this help")
   optFull := getopt.BoolLong("full", 'f', "Show all the connections")
   optDeepLevel := getopt.IntLong("deep", 0, 99, "Set the deep level. Default to full path")
@@ -76,6 +77,16 @@ func main() {
           g.Add(*optAsn, member.Asn)
         }
       }
+    }
+  }
+
+  if *optPeers {
+    if !*optSilent {
+      fmt.Printf("Quering for ASN Peers: %d\n", *optAsn)
+    }
+    asPeers := api.GetAsnPeers(*optAsn)
+    for _,asPeer := range asPeers.Data.Ipv4Peers {
+      g.Add(*optAsn, asPeer.Asn)
     }
   }
   if *optSilent {
