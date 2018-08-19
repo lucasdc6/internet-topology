@@ -13,6 +13,16 @@ type AsnPrefix struct {
 }
 
 type AsnPrefixes struct {
-  Ipv4Prefixes []AsnPrefix `json:"ipv4_prefixes"`
-  Ipv6Prefixes []AsnPrefix `json:"ipv6_prefixes"`
+  Status string `json:"status"`
+  StatusMessage string `json:"status_message"`
+  Data struct {
+    Ipv4Prefixes []AsnPrefix `json:"ipv4_prefixes"`
+    Ipv6Prefixes []AsnPrefix `json:"ipv6_prefixes"`
+  } `json:"data"`
+  Metadata Metadata `json:"@meta"`
 }
+
+func (asn AsnPrefixes) ToJson() string {
+  return toJson(asn)
+}
+

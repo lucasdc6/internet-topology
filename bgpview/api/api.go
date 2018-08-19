@@ -30,9 +30,8 @@ func getGeneric(url string, res interface{}) (error error) {
   return error
 }
 
-func GetAsn(id int64) types.Response {
+func GetAsn(id int64) (response types.Asn) {
   url := fmt.Sprintf("https://api.bgpview.io/asn/%d", id)
-  response := types.Response{ Data: types.Asn{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
@@ -40,9 +39,8 @@ func GetAsn(id int64) types.Response {
   return response
 }
 
-func GetAsnPrefixes(id int64) types.Response {
+func GetAsnPrefixes(id int64) (response types.AsnPrefixes) {
   url := fmt.Sprintf("https://api.bgpview.io/asn/%d/prefixes", id)
-  response := types.Response{ Data: types.AsnPrefixes{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
@@ -50,9 +48,8 @@ func GetAsnPrefixes(id int64) types.Response {
   return response
 }
 
-func GetAsnPeers(id int64) types.Response {
+func GetAsnPeers(id int64) (response types.AsnPeers) {
   url := fmt.Sprintf("https://api.bgpview.io/asn/%d/peers", id)
-  response := types.Response{ Data: types.AsnPrefixes{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
@@ -60,9 +57,8 @@ func GetAsnPeers(id int64) types.Response {
   return response
 }
 
-func GetAsnUpstreams(id int64) types.Response {
+func GetAsnUpstreams(id int64) (response types.AsnUpstreams) {
   url := fmt.Sprintf("https://api.bgpview.io/asn/%d/upstreams", id)
-  response := types.Response{ Data: types.AsnUpstreams{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
@@ -70,9 +66,8 @@ func GetAsnUpstreams(id int64) types.Response {
   return response
 }
 
-func GetAsnDownstreams(id int64) types.Response {
+func GetAsnDownstreams(id int64) (response types.AsnDownstreams) {
   url := fmt.Sprintf("https://api.bgpview.io/asn/%d/downstreams", id)
-  response := types.Response{ Data: types.AsnDownstreams{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
@@ -80,9 +75,8 @@ func GetAsnDownstreams(id int64) types.Response {
   return response
 }
 
-func GetAsnIxs(id int64) types.Response {
+func GetAsnIxs(id int64) (response types.AsnIxs) {
   url := fmt.Sprintf("https://api.bgpview.io/asn/%d/ixs", id)
-  response := types.Response{ Data: types.AsnIxs{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
@@ -90,9 +84,8 @@ func GetAsnIxs(id int64) types.Response {
   return response
 }
 
-func GetPrefix(ip string, cidr int64) types.Response {
+func GetPrefix(ip string, cidr int64) (response types.Prefix) {
   url := fmt.Sprintf("https://api.bgpview.io/prefix/%s/%d", ip, cidr)
-  response := types.Response{ Data: types.Prefix{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
@@ -100,9 +93,8 @@ func GetPrefix(ip string, cidr int64) types.Response {
   return response
 }
 
-func GetIx(id int64) types.Response {
+func GetIx(id int64) (response types.Ix) {
   url := fmt.Sprintf("https://api.bgpview.io/ix/%d", id)
-  response := types.Response{ Data: types.Ix{}}
   err := getGeneric(url, &response)
   if err != nil {
     panic(err)
