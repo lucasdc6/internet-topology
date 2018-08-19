@@ -3,7 +3,7 @@ package main
 import (
   "os"
   "fmt"
-  "strconv"
+  "io/ioutil"
   "github.com/pborman/getopt/v2"
   "github.com/yourbasic/graph"
   "github.com/lucasdc6/internet-topology/options"
@@ -14,10 +14,12 @@ import (
 func main() {
   debug := environment.GetDebugFor("main") || environment.GetDebug()
   // Declare options
-  opAsInfo := getopt.BoolLong("as-info", 'a', "Show Asn info")
+  optAsn := getopt.IntLong("asn", 0, -1, "Set AS number")
   optIx := getopt.BoolLong("ix", 'i', "Show IX connections")
   optHelp := getopt.BoolLong("help", 'h', "Show this help")
-  opFull := getopt.BoolLong("full", 'f', "Show all the connections")
+  optFull := getopt.BoolLong("full", 'f', "Show all the connections")
+  optDeepLevel := getopt.IntLong("deep", 0, 99, "Set the deep level. Default to full path")
+  optOutput := getopt.StringLong("output", 'o', "/tmp/internet-topology", "Set the output file. Default to /tmp/internet-topology")
 
   // Parse
   getopt.Parse()
@@ -31,22 +33,42 @@ func main() {
     fmt.Println(*optIx)
   }
 
-  if debug && *opFull {
-    fmt.Println(*opFull)
+  if debug && *optFull {
+    fmt.Println(*optFull)
   }
 
-  if *opAsInfo {
-    g := graph.New(99999)
-    asn, err := strconv.Atoi(getopt.Args()[0])
-    if err != nil {
-      fmt.Println("Error parsing as number")
-      os.Exit(1)
-    }
-    fmt.Printf("Quering for ASN: %d\n", asn)
-    as := api.GetAsnUpstreams(asn)
+  g := graph.New(999999)
+  if *optAsn > 0 {
+    fmt.Printf("Quering for ASN: %d\n", *optAsn)
+    as := api.GetAsnUpstreams(*optAsn)
     for _, upstream := range as.Data.Ipv4Upstreams {
-      options.CreateGraph(g, upstream.BgpPaths)
+      options.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
     }
-    fmt.Println(g)
+    if *optFull {
+      graph.BFS(g, *optAsn, func(v, w int, _ int64) {
+        if v != *optAsn {
+          fmt.Printf("Quering for ASN: %d\n", w)
+          as := api.GetAsnUpstreams(w)
+          for _, upstream := range as.Data.Ipv4Upstreams {
+            options.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
+          }
+        }
+      })
+    }
   }
+  if *optIx {
+    fmt.Printf("Quering for ASN IX: %d\n", *optAsn)
+    asIxs := api.GetAsnIxs(*optAsn)
+    for _, asIx := range asIxs.Data {
+      fmt.Printf("Quering for IX (%s) members: %d\n", asIx.Name, asIx.IxId)
+      ix := api.GetIx(asIx.IxId)
+      for _, member := range ix.Data.Members {
+        if member.Asn != *optAsn {
+          g.Add(*optAsn, member.Asn)
+        }
+      }
+    }
+  }
+  fmt.Printf("Saving file in %s\n", *optOutput)
+  ioutil.WriteFile(*optOutput, []byte(options.GraphToJson(g, *optAsn)), 0644)
 }
