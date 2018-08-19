@@ -14,6 +14,7 @@ import (
 func main() {
   debug := environment.GetDebugFor("main") || environment.GetDebug()
   // Declare options
+  optSilent := getopt.BoolLong("silent", 's', "Set silent mode.")
   optAsn := getopt.IntLong("asn", 0, -1, "Set AS number")
   optIx := getopt.BoolLong("ix", 'i', "Show IX connections")
   optHelp := getopt.BoolLong("help", 'h', "Show this help")
@@ -39,7 +40,9 @@ func main() {
 
   g := graph.New(999999)
   if *optAsn > 0 {
-    fmt.Printf("Quering for ASN: %d\n", *optAsn)
+    if !*optSilent {
+      fmt.Printf("Quering for ASN: %d\n", *optAsn)
+    }
     as := api.GetAsnUpstreams(*optAsn)
     for _, upstream := range as.Data.Ipv4Upstreams {
       options.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
@@ -47,7 +50,9 @@ func main() {
     if *optFull {
       graph.BFS(g, *optAsn, func(v, w int, _ int64) {
         if v != *optAsn {
-          fmt.Printf("Quering for ASN: %d\n", w)
+          if !*optSilent {
+            fmt.Printf("Quering for ASN: %d\n", w)
+          }
           as := api.GetAsnUpstreams(w)
           for _, upstream := range as.Data.Ipv4Upstreams {
             options.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
@@ -57,10 +62,14 @@ func main() {
     }
   }
   if *optIx {
-    fmt.Printf("Quering for ASN IX: %d\n", *optAsn)
+    if !*optSilent {
+      fmt.Printf("Quering for ASN IX: %d\n", *optAsn)
+    }
     asIxs := api.GetAsnIxs(*optAsn)
     for _, asIx := range asIxs.Data {
-      fmt.Printf("Quering for IX (%s) members: %d\n", asIx.Name, asIx.IxId)
+      if !*optSilent {
+        fmt.Printf("Quering for IX (%s) members: %d\n", asIx.Name, asIx.IxId)
+      }
       ix := api.GetIx(asIx.IxId)
       for _, member := range ix.Data.Members {
         if member.Asn != *optAsn {
@@ -69,6 +78,10 @@ func main() {
       }
     }
   }
-  fmt.Printf("Saving file in %s\n", *optOutput)
+  if *optSilent {
+    fmt.Println(*optOutput)
+  } else {
+    fmt.Printf("Saving file in %s\n", *optOutput)
+  }
   ioutil.WriteFile(*optOutput, []byte(options.GraphToJson(g, *optAsn)), 0644)
 }
