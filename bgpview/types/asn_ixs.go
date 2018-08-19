@@ -3,7 +3,7 @@ package types
 type AsnIxs struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`
-  Data struct {
+  Data []struct {
     IxId int `json:"ix_id"`
     Name string `json:"name"`
     NameFull string `json:"name_full"`

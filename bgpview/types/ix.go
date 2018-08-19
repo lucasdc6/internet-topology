@@ -19,15 +19,15 @@ type Ix struct {
     Website string `json:"website"`
     TechEmail string `json:"tech_email"`
     TechPhone string `json:"tech_phone"`
-    PolicyEmail string `json:"policy_email"`
+    PolicyEmail string `json:"policy_email,omitempty"`
     PolicyPhone string `json:"policy_phone"`
     City string `json:"city"`
     CountryCode string `json:"country_code"`
-    UrlStats string `json:"url_stats"`
+    UrlStats string `json:"url_stats,omitempty"`
     MembersCount int `json:"members_count"`
     Members []IxMember `json:"members"`
   } `json:"data"`
-  Metadata Metadata `json:"data"`
+  Metadata Metadata `json:"@meta"`
 }
 
 func (ix Ix) ToJson() string {

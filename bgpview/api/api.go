@@ -1,6 +1,7 @@
 package api
 
 import (
+  "os"
   "fmt"
   "net/http"
   "io/ioutil"
@@ -22,6 +23,10 @@ func getGeneric(url string, res interface{}) (error error) {
 
   if err != nil {
     error = err
+  }
+
+  if debug {
+    fmt.Printf("Query for %s\nbody: %v", url, string(body))
   }
 
   err = json.Unmarshal([]byte(body), &res)
@@ -76,7 +81,8 @@ func GetAsnUpstreams(id int) (response types.AsnUpstreams) {
   url := fmt.Sprintf("https://api.bgpview.io/asn/%d/upstreams", id)
   err := getGeneric(url, &response)
   if err != nil {
-    panic(err)
+    fmt.Printf("Error quering\n")
+    os.Exit(2)
   }
   return response
 }
