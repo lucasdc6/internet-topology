@@ -37,7 +37,7 @@ func main() {
 
   if *opAsInfo {
     g := graph.New(99999)
-    asn, err := strconv.ParseInt(getopt.Args()[0], 10, 64)
+    asn, err := strconv.Atoi(getopt.Args()[0])
     if err != nil {
       fmt.Println("Error parsing as number")
       os.Exit(1)
