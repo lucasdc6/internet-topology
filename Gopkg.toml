@@ -33,10 +33,6 @@
   branch = "master"
   name = "github.com/pborman/getopt"
 
-[[constraint]]
-  name = "github.com/thoas/go-funk"
-  version = "0.3.0"
-
 [prune]
   go-tests = true
   unused-packages = true
