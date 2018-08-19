@@ -58,6 +58,14 @@
   version = "0.3"
 
 [[projects]]
+  digest = "1:5e921352d70c72d1c4630995378bf74211700f0c502ea9ef933022c499d7ba9d"
+  name = "github.com/yourbasic/graph"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "40eb135c0b2618a87b653037e2697f58436d4666"
+  version = "1.0.5"
+
+[[projects]]
   branch = "master"
   digest = "1:1d18232beafad93272158a9e9810f417b418c2f967e0506f3e2609c10310fe31"
   name = "golang.org/x/crypto"
@@ -83,6 +91,7 @@
     "github.com/openrdap/rdap",
     "github.com/pborman/getopt/v2",
     "github.com/thoas/go-funk",
+    "github.com/yourbasic/graph",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
