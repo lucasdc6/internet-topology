@@ -6,7 +6,7 @@ import (
   "io/ioutil"
   "github.com/pborman/getopt/v2"
   "github.com/yourbasic/graph"
-  "github.com/lucasdc6/internet-topology/options"
+  "github.com/lucasdc6/internet-topology/utils"
   "github.com/lucasdc6/internet-topology/environment"
   "github.com/lucasdc6/internet-topology/bgpview/api"
 )
@@ -46,7 +46,7 @@ func main() {
     }
     as := api.GetAsnUpstreams(*optAsn)
     for _, upstream := range as.Data.Ipv4Upstreams {
-      options.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
+      utils.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
     }
     if *optFull {
       graph.BFS(g, *optAsn, func(v, w int, _ int64) {
@@ -56,7 +56,7 @@ func main() {
           }
           as := api.GetAsnUpstreams(w)
           for _, upstream := range as.Data.Ipv4Upstreams {
-            options.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
+            utils.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
           }
         }
       })
@@ -94,5 +94,5 @@ func main() {
   } else {
     fmt.Printf("Saving file in %s\n", *optOutput)
   }
-  ioutil.WriteFile(*optOutput, []byte(options.GraphToJson(g, *optAsn)), 0644)
+  ioutil.WriteFile(*optOutput, []byte(utils.GraphToJson(g, *optAsn)), 0644)
 }
