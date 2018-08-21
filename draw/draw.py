@@ -12,11 +12,6 @@ def show_help():
     print '    -o | --output    Set output file (required)'
     print '    -h               Show this help'
 
-def parse(data2):
-    x = data2.split(",")
-    if (len(x) == 2):
-        return (x[0], x[1])
-
 def main(argv):
     inputfile = ''
     outputfile = ''
@@ -41,16 +36,26 @@ def main(argv):
                 show_help()
                 sys.exit(3)
             fileformat = arg
-    if (inputfile == '' or outputfile == ''):
+    if (outputfile == ''):
         print 'ERROR: Missing input or output file\n'
         show_help()
         sys.exit(1)
+
+    if (inputfile == ''):
+        infile = sys.stdin
+    else:
+        infile = open(inputfile)
+
+    data = []
+    for line in infile:
+        if (line=='q'):
+            break
+        f1, f2 = line.split(",")
+        data.append((f1.rstrip(), f2.rstrip()))
     outputfile = outputfiletemplate.substitute(path=outputfile, format=fileformat)
-    data = open(inputfile).read().split("\n")
-    asConnections = filter(lambda x: x is not None, map(parse, list(data)))
     g = nx.Graph()
 
-    g.add_edges_from(asConnections)
+    g.add_edges_from(data)
     pos = nx.spring_layout(g, k=0.3*1/np.sqrt(len(g.nodes())), iterations=1)
     plt.figure(3, figsize=(30, 30))
     nx.draw(g, pos=pos)
