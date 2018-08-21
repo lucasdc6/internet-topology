@@ -14,7 +14,7 @@ import (
 func main() {
   debug := environment.GetDebugFor("main") || environment.GetDebug()
   // Declare options
-  optSilent := getopt.BoolLong("silent", 's', "Set silent mode.")
+  optPipeMode := getopt.BoolLong("pipe", 0, "Set pipe mode.")
   optAsn := getopt.IntLong("asn", 0, -1, "Set AS number")
   optIx := getopt.BoolLong("ix", 'i', "Show IX connections")
   optPeers := getopt.BoolLong("peers", 'p', "Show Peers connections")
@@ -41,7 +41,7 @@ func main() {
 
   g := graph.New(999999)
   if *optAsn > 0 {
-    if !*optSilent {
+    if !*optPipeMode {
       fmt.Printf("Quering for ASN: %d\n", *optAsn)
     }
     as := api.GetAsnUpstreams(*optAsn)
@@ -51,7 +51,7 @@ func main() {
     if *optFull {
       graph.BFS(g, *optAsn, func(v, w int, _ int64) {
         if v != *optAsn {
-          if !*optSilent {
+          if !*optPipeMode {
             fmt.Printf("Quering for ASN: %d\n", w)
           }
           as := api.GetAsnUpstreams(w)
@@ -63,12 +63,12 @@ func main() {
     }
   }
   if *optIx {
-    if !*optSilent {
+    if !*optPipeMode {
       fmt.Printf("Quering for ASN IX: %d\n", *optAsn)
     }
     asIxs := api.GetAsnIxs(*optAsn)
     for _, asIx := range asIxs.Data {
-      if !*optSilent {
+      if !*optPipeMode {
         fmt.Printf("Quering for IX (%s) members: %d\n", asIx.Name, asIx.IxId)
       }
       ix := api.GetIx(asIx.IxId)
@@ -81,7 +81,7 @@ func main() {
   }
 
   if *optPeers {
-    if !*optSilent {
+    if !*optPipeMode {
       fmt.Printf("Quering for ASN Peers: %d\n", *optAsn)
     }
     asPeers := api.GetAsnPeers(*optAsn)
@@ -89,8 +89,8 @@ func main() {
       g.Add(*optAsn, asPeer.Asn)
     }
   }
-  if *optSilent {
-    fmt.Println(*optOutput)
+  if *optPipeMode {
+    fmt.Println(utils.GraphToJson(g, *optAsn))
   } else {
     fmt.Printf("Saving file in %s\n", *optOutput)
   }
