@@ -58,14 +58,6 @@
   version = "0.3"
 
 [[projects]]
-  digest = "1:5e921352d70c72d1c4630995378bf74211700f0c502ea9ef933022c499d7ba9d"
-  name = "github.com/yourbasic/graph"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "40eb135c0b2618a87b653037e2697f58436d4666"
-  version = "1.0.5"
-
-[[projects]]
   branch = "master"
   digest = "1:1d18232beafad93272158a9e9810f417b418c2f967e0506f3e2609c10310fe31"
   name = "golang.org/x/crypto"
@@ -75,6 +67,43 @@
   ]
   pruneopts = "UT"
   revision = "aabede6cba87e37f413b3e60ebfc214f8eeca1b0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:f1b2366e14935fda456dccd2628d0818f55b8c00d73414d84bf4d4e96e236fdd"
+  name = "gonum.org/v1/gonum"
+  packages = [
+    "blas",
+    "blas/blas64",
+    "blas/gonum",
+    "floats",
+    "graph",
+    "graph/encoding",
+    "graph/encoding/dot",
+    "graph/formats/dot",
+    "graph/formats/dot/ast",
+    "graph/formats/dot/internal/astx",
+    "graph/formats/dot/internal/errors",
+    "graph/formats/dot/internal/lexer",
+    "graph/formats/dot/internal/parser",
+    "graph/formats/dot/internal/token",
+    "graph/internal/linear",
+    "graph/internal/ordered",
+    "graph/internal/set",
+    "graph/internal/uid",
+    "graph/simple",
+    "graph/traverse",
+    "internal/asm/c128",
+    "internal/asm/f32",
+    "internal/asm/f64",
+    "internal/math32",
+    "lapack",
+    "lapack/gonum",
+    "lapack/lapack64",
+    "mat",
+  ]
+  pruneopts = "UT"
+  revision = "929014505bf4717eb082c9bbe164eb280cf47895"
 
 [[projects]]
   digest = "1:c06d9e11d955af78ac3bbb26bd02e01d2f61f689e1a3bce2ef6fb683ef8a7f2d"
@@ -91,7 +120,9 @@
     "github.com/openrdap/rdap",
     "github.com/pborman/getopt/v2",
     "github.com/thoas/go-funk",
-    "github.com/yourbasic/graph",
+    "gonum.org/v1/gonum/graph/encoding/dot",
+    "gonum.org/v1/gonum/graph/simple",
+    "gonum.org/v1/gonum/graph/traverse",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
