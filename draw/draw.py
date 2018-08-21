@@ -45,18 +45,24 @@ if (inputfile == ''):
 else:
     infile = open(inputfile)
 
+print "Reading data..."
 data = []
 for line in infile:
     if (line=='q'):
         break
-    f1, f2 = line.split(",")
-    data.append((f1.rstrip(), f2.rstrip()))
+    if (len(line) > 1):
+        f1, f2 = line.split(",")
+        data.append((f1.rstrip(), f2.rstrip()))
 outputfile = outputfiletemplate.substitute(path=outputfile, format=fileformat)
 g = nx.Graph()
 
+
+print "Making graph..."
 g.add_edges_from(data)
 pos = nx.spring_layout(g, k=0.3*1/np.sqrt(len(g.nodes())), iterations=1)
 plt.figure(3, figsize=(30, 30))
 nx.draw(g, pos=pos)
 nx.draw_networkx_labels(g, pos=pos)
+
+print "Saving at", outputfile
 plt.savefig(outputfile)
