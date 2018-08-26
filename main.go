@@ -5,7 +5,10 @@ import (
   "fmt"
   "io/ioutil"
   "github.com/pborman/getopt/v2"
-  "github.com/yourbasic/graph"
+  "gonum.org/v1/gonum/graph"
+  "gonum.org/v1/gonum/graph/simple"
+  "gonum.org/v1/gonum/graph/encoding/dot"
+  "gonum.org/v1/gonum/graph/traverse"
   "github.com/lucasdc6/internet-topology/utils"
   "github.com/lucasdc6/internet-topology/environment"
   "github.com/lucasdc6/internet-topology/bgpview/api"
@@ -26,6 +29,7 @@ func main() {
   // Parse
   getopt.Parse()
 
+  // Check args
   if len(os.Args) < 2 || *optHelp {
     getopt.Usage()
     os.Exit(0)
@@ -39,7 +43,8 @@ func main() {
     fmt.Println(*optFull)
   }
 
-  g := graph.New(999999)
+  // Init graph
+  g := simple.NewDirectedGraph()
   if *optAsn > 0 {
     if !*optPipeMode {
       fmt.Printf("Quering for ASN: %d\n", *optAsn)
@@ -49,17 +54,19 @@ func main() {
       utils.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
     }
     if *optFull {
-      graph.BFS(g, *optAsn, func(v, w int, _ int64) {
-        if v != *optAsn {
-          if !*optPipeMode {
-            fmt.Printf("Quering for ASN: %d\n", w)
+      b := traverse.BreadthFirst{
+        Visit: func(u, v graph.Node) {
+          if v.ID() != int64(*optAsn) {
+            if !*optPipeMode {
+              fmt.Printf("Quering for ASN: %d\n", v)
+            }
+            as := api.GetAsnUpstreams(int(v.ID()))
+            for _, upstream := range as.Data.Ipv4Upstreams {
+              utils.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
+            }
           }
-          as := api.GetAsnUpstreams(w)
-          for _, upstream := range as.Data.Ipv4Upstreams {
-            utils.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
-          }
-        }
-      })
+        }}
+      b.Walk(g, g.Node(int64(*optAsn)), nil)
     }
   }
   if *optIx {
@@ -74,7 +81,7 @@ func main() {
       ix := api.GetIx(asIx.IxId)
       for _, member := range ix.Data.Members {
         if member.Asn != *optAsn {
-          g.Add(*optAsn, member.Asn)
+          g.SetEdge(simple.Edge{F: simple.Node(*optAsn), T: simple.Node(member.Asn)})
         }
       }
     }
@@ -86,13 +93,16 @@ func main() {
     }
     asPeers := api.GetAsnPeers(*optAsn)
     for _,asPeer := range asPeers.Data.Ipv4Peers {
-      g.Add(*optAsn, asPeer.Asn)
+      g.SetEdge(simple.Edge{F: simple.Node(*optAsn), T: simple.Node(asPeer.Asn)})
     }
   }
   if *optPipeMode {
-    fmt.Println(utils.GraphToJson(g, *optAsn))
+    fmt.Printf("%s", utils.GraphToData(g, *optAsn))
   } else {
     fmt.Printf("Saving file in %s\n", *optOutput)
   }
-  ioutil.WriteFile(*optOutput, []byte(utils.GraphToJson(g, *optAsn)), 0644)
+
+  str, _ := dot.Marshal(g, "", "", "  ", false)
+  ioutil.WriteFile(fmt.Sprintf("%s.dot", *optOutput), str, 0644)
+  ioutil.WriteFile(fmt.Sprintf("%s.data", *optOutput), []byte(utils.GraphToData(g, *optAsn)), 0644)
 }
