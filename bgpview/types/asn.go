@@ -1,5 +1,6 @@
 package types
 
+// Asn structure
 type Asn struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`
