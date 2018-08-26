@@ -4,7 +4,7 @@ import (
   "encoding/json"
 )
 
-// Metadata
+// Metadata - Metadata from response
 type Metadata struct {
   TimeZone string `json:"time_zone"`
   ApiVersion int `json:"api_version"`
