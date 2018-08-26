@@ -1,6 +1,6 @@
 package types
 
-// Asn prefix, used by AsnPrefixes
+// AsnPrefix - Asn prefix, used by AsnPrefixes
 type AsnPrefix struct {
   Prefix string `json:"prefix"`
   Ip string `json:"ip"`
@@ -13,7 +13,7 @@ type AsnPrefix struct {
   Parent []AsnPrefix `json:"parent"`
 }
 
-// Asn Prefixes, use AsnPrefix - Get as's prefixes
+// AsnPrefixes - Asn Prefixes, use AsnPrefix - Get as's prefixes
 type AsnPrefixes struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`

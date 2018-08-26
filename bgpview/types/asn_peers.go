@@ -1,6 +1,6 @@
 package types
 
-// Asn peer structure
+// AsnPeer - Asn peer structure
 type AsnPeer struct {
   Asn int `json:"asn"`
   Name string `json:"name"`
@@ -8,7 +8,7 @@ type AsnPeer struct {
   CountryCode string `json:"country_code"`
 }
 
-// Asn peers structure, use AsnPeer
+// AsnPeers - Asn peers structure, use AsnPeer
 type AsnPeers struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`

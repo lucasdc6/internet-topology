@@ -1,6 +1,6 @@
 package types
 
-// Asn up or downstream (generic)
+// AsnUpDownstream - Asn up or downstream (generic)
 type AsnUpDownstream struct {
   Asn int `json:"asn"`
   Name string `json:"name"`
@@ -9,7 +9,7 @@ type AsnUpDownstream struct {
   BgpPaths []string `json:"bgp_paths"`
 }
 
-// Asn upstreams, use AsnUpDownstream
+// AsnUpstreams - Asn upstreams, use AsnUpDownstream
 type AsnUpstreams struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`
@@ -23,7 +23,7 @@ type AsnUpstreams struct {
   Metadata Metadata `json:"@meta"`
 }
 
-// Asn downstreams, use AsnUpDownstream
+// AsnDownstreams - Asn downstreams, use AsnUpDownstream
 type AsnDownstreams struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`

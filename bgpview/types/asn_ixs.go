@@ -1,6 +1,6 @@
 package types
 
-// Asn ixs stucture - Get as's ixs list
+// AsnIxs - Asn ixs stucture - Get as's ixs list
 type AsnIxs struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`
