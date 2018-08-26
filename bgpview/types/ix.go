@@ -32,6 +32,7 @@ type Ix struct {
   Metadata Metadata `json:"@meta"`
 }
 
+// ToJson - Print Ix with json format
 func (ix Ix) ToJson() string {
   return toJson(ix)
 }

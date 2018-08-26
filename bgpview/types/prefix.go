@@ -59,6 +59,7 @@ type Prefix struct {
   Metadata Metadata `json:"@meta"`
 }
 
+// ToJson - Print Prefix with json format
 func (prefix Prefix) ToJson() string {
   return toJson(prefix)
 }

@@ -34,10 +34,12 @@ type AsnDownstreams struct {
   Metadata Metadata `json:"@meta"`
 }
 
+// ToJson - Print AsnUpstreams with json format
 func (asn AsnUpstreams) ToJson() string {
   return toJson(asn)
 }
 
+// ToJson - Print AsnDownstreams with json format
 func (asn AsnDownstreams) ToJson() string {
   return toJson(asn)
 }

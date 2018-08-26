@@ -17,6 +17,7 @@ type AsnIxs struct {
   Metadata Metadata `json:"@meta"`
 }
 
+// ToJson - Print AsnIxs with json format
 func (asn AsnIxs) ToJson() string {
   return toJson(asn.Data)
 }
