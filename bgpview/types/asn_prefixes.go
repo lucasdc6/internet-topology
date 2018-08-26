@@ -2,15 +2,20 @@ package types
 
 // AsnPrefix - Asn prefix, used by AsnPrefixes
 type AsnPrefix struct {
-	Prefix      string      `json:"prefix"`
-	Ip          string      `json:"ip"`
-	Cidr        int64       `json:"cidr"`
-	RoaStatus   string      `json:"roa_status,omitempty"`
-	Name        string      `json:"name,omitempty"`
-	Description string      `json:"description,omitempty"`
-	CountryCode string      `json:"country_code,omitempty"`
-	RirName     string      `json:"rir_name,omitempty"`
-	Parent      []AsnPrefix `json:"parent"`
+	Prefix      string `json:"prefix"`
+	Ip          string `json:"ip"`
+	Cidr        int64  `json:"cidr"`
+	RoaStatus   string `json:"roa_status"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	CountryCode string `json:"country_code"`
+	Parent      struct {
+		Prefix           string `json:"prefix"`
+		Ip               string `json:"ip"`
+		Cidr             int64  `json:"cidr"`
+		RirName          string `json:"rir_name"`
+		AllocationStatus string `json:"allocation_status"`
+	} `json:"parent,omitempty"`
 }
 
 // AsnPrefixes - Asn Prefixes, use AsnPrefix - Get as's prefixes

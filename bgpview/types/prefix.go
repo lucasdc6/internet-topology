@@ -16,7 +16,7 @@ type Prefix struct {
 		Prefix string `json:"prefix"`
 		Ip     string `json:"ip"`
 		Cidr   int    `json:"cidr"`
-		Asns   struct {
+		Asns   []struct {
 			Asn             int              `json:"asn"`
 			Name            string           `json:"name"`
 			Description     string           `json:"description"`
