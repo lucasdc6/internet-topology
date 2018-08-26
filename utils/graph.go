@@ -4,19 +4,19 @@ import (
   "fmt"
   "strconv"
   "strings"
-  "github.com/yourbasic/graph"
+  graph "gonum.org/v1/gonum/graph/simple"
   "github.com/lucasdc6/internet-topology/environment"
 )
 
-func GraphToJson(g *graph.Mutable, from int) string {
+func GraphToData(g *graph.DirectedGraph, from int) string {
   var str strings.Builder
-  graph.BFS(g, from, func(v, w int, _ int64) {
-    fmt.Fprintf(&str, "%d,%d\n", v, w)
-  })
+  for _, edge := range g.Edges() {
+    fmt.Fprintf(&str, "%d,%d\n", edge.From(), edge.To())
+  }
   return str.String()
 }
 
-func AddToGraph(g *graph.Mutable, paths []string, deepLevel int) {
+func AddToGraph(g *graph.DirectedGraph, paths []string, deepLevel int) {
   debugEnv := environment.GetDebugFor("options") || environment.GetDebug()
   for _, path := range paths {
     var high, actual, asni int
@@ -38,7 +38,7 @@ func AddToGraph(g *graph.Mutable, paths []string, deepLevel int) {
       if debugEnv {
         fmt.Printf("Added %d -> %d to graph\n\n", actual, asni)
       }
-      g.Add(actual, asni)
+      g.SetEdge(graph.Edge{F: graph.Node(actual), T: graph.Node(asni)})
       actual = asni
     }
   }
