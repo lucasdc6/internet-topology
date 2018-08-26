@@ -1,12 +1,12 @@
 package types
 
-// NetworkBody
+// NetworkBody - Internet's network
 type NetworkBody struct {
   Meta Meta
   Data []Network
 }
 
-// IxBody
+// IxBody - Internet's ix
 type IxBody struct {
   Meta Meta
   Data []Ix
@@ -50,6 +50,7 @@ type Network struct {
   Status string `json:"status"`
 }
 
+// Ix - Internet's ix
 type Ix struct {
   Id int64 `json:"id"`
   OrgId int64 `json:"org_id"`
@@ -97,7 +98,7 @@ type Organization struct {
   Status string `json:"status"`
 }
 
-// Fac
+// Fac - Fac
 type Fac struct {
   Id int64 `json:"id"`
   OrgId int64 `json:"org_id"`
@@ -122,10 +123,10 @@ type Fac struct {
   Zipcode string `json:"zipcode"`
 }
 
-// Netfac
+// Netfac - Netfac
 type Netfac struct {}
 
-// Netixlan
+// Netixlan - Netixlan
 type Netixlan struct {
   Id int64 `json:"id"`
   IxId int64 `json:"ix_id"`
@@ -142,10 +143,10 @@ type Netixlan struct {
   Status string `json:"status"`
 }
 
-// Poc
+// Poc - Poc
 type Poc struct {}
 
-// Ixlan
+// Ixlan - Ix network
 type Ixlan struct {
   Id int64 `json:"id"`
   Name string `json:"name"`
