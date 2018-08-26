@@ -6,6 +6,7 @@ import (
   "encoding/json"
 )
 
+// GetGeneric - Get request to url with unmarshall in res
 func GetGeneric(url string, res interface{}) (error error) {
   resp, err := http.Get(url)
   if err != nil {

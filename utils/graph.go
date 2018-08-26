@@ -8,6 +8,7 @@ import (
   "github.com/lucasdc6/internet-topology/environment"
 )
 
+// GraphToData - Convert graph to str
 func GraphToData(g *graph.DirectedGraph, from int) string {
   var str strings.Builder
   for _, edge := range g.Edges() {
@@ -16,6 +17,7 @@ func GraphToData(g *graph.DirectedGraph, from int) string {
   return str.String()
 }
 
+// AddToGraph - Add paths array with deepLevel to graph g
 func AddToGraph(g *graph.DirectedGraph, paths []string, deepLevel int) {
   debugEnv := environment.GetDebugFor("options") || environment.GetDebug()
   for _, path := range paths {
