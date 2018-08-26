@@ -10,6 +10,7 @@ import (
 
 var debug = environment.GetDebugFor("bgpview") || environment.GetDebug()
 
+// GetAsn - GetAsn from as number (id)
 func GetAsn(id int) (response types.Asn) {
   if debug {
     fmt.Printf("GetAsn query with: %d\n", id)
@@ -22,6 +23,7 @@ func GetAsn(id int) (response types.Asn) {
   return response
 }
 
+// GetAsnPrefixes - Get asn prefixes from as number (id)
 func GetAsnPrefixes(id int) (response types.AsnPrefixes) {
   if debug {
     fmt.Printf("GetAsnPrefixes query with: %d\n", id)
@@ -34,6 +36,7 @@ func GetAsnPrefixes(id int) (response types.AsnPrefixes) {
   return response
 }
 
+// GetAsnPeers - Get as peers from as number (id)
 func GetAsnPeers(id int) (response types.AsnPeers) {
   if debug {
     fmt.Printf("GetAsnPeers query with: %d\n", id)
@@ -46,6 +49,7 @@ func GetAsnPeers(id int) (response types.AsnPeers) {
   return response
 }
 
+// GetAsnUpstreams - Get as upstreams from as number (id)
 func GetAsnUpstreams(id int) (response types.AsnUpstreams) {
   if debug {
     fmt.Printf("GetAsnUpstreams query with: %d\n", id)
@@ -59,6 +63,7 @@ func GetAsnUpstreams(id int) (response types.AsnUpstreams) {
   return response
 }
 
+// GetAsnDownstreams - Get as downstreams from as number (id)
 func GetAsnDownstreams(id int) (response types.AsnDownstreams) {
   if debug {
     fmt.Printf("GetAsnDownstreams query with: %d\n", id)
@@ -71,6 +76,7 @@ func GetAsnDownstreams(id int) (response types.AsnDownstreams) {
   return response
 }
 
+// GetAsnIxs - Get as's ix from as number (id)
 func GetAsnIxs(id int) (response types.AsnIxs) {
   if debug {
     fmt.Printf("GetAsnIxs query with: %d\n", id)
@@ -83,6 +89,7 @@ func GetAsnIxs(id int) (response types.AsnIxs) {
   return response
 }
 
+// GetPrefix - Get internet prefix from ip and cidr
 func GetPrefix(ip string, cidr int) (response types.Prefix) {
   if debug {
     fmt.Printf("GetPrefix query with: %s and %d\n", ip, cidr)
@@ -95,6 +102,7 @@ func GetPrefix(ip string, cidr int) (response types.Prefix) {
   return response
 }
 
+// GetIx - Get internet ix from ix id
 func GetIx(id int) (response types.Ix) {
   if debug {
     fmt.Printf("GetIx query with: %d\n", id)
