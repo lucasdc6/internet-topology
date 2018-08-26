@@ -1,5 +1,6 @@
 package types
 
+// Prefix Upstream
 type PrefixUpstream struct {
   Asn int `json:"asn"`
   Name string `json:"name"`
@@ -7,6 +8,7 @@ type PrefixUpstream struct {
   CountryCode string `json:"country_code"`
 }
 
+// Prefix of internet, us PrefixUpstream
 type Prefix struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`

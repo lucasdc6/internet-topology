@@ -1,5 +1,6 @@
 package types
 
+// Ix member, modelate an ix
 type IxMember struct {
   Asn int `json:"asn"`
   Name string `json:"name"`
@@ -10,6 +11,7 @@ type IxMember struct {
   Speed int `json:"speed"`
 }
 
+// Ix, use IxMember in members array
 type Ix struct {
   Status string `json:"status"`
   StatusMessage string `json:"status_message"`
