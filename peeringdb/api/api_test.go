@@ -1,23 +1,22 @@
-package test
+package api
 
 import (
 	"fmt"
-	"github.com/lucasdc6/internet-topology/peeringdb/api"
 	"testing"
 )
 
 func TestQueries(t *testing.T) {
-	asn, err := api.GetAsn(5692)
+	asn, err := GetAsn(5692)
 	if err != nil {
 		panic(err)
 	}
 
-	network, err := api.GetNetwork(asn.Data[0].Id)
+	network, err := GetNetwork(asn.Data[0].Id)
 	if err != nil {
 		panic(err)
 	}
 
-	ix, err := api.GetIx(network.Data[0].NetixlanSet[0].IxlanId)
+	ix, err := GetIx(network.Data[0].NetixlanSet[0].IxlanId)
 	if err != nil {
 		panic(err)
 	}

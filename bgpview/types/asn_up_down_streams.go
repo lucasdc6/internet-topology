@@ -16,9 +16,9 @@ type AsnUpstreams struct {
 	Data          struct {
 		Ipv4Upstreams []AsnUpDownstream `json:"ipv4_upstreams"`
 		Ipv6Upstreams []AsnUpDownstream `json:"ipv6_upstreams"`
-		Ipv4Graph     struct{}          `json:"ipv4_graph"`
-		Ipv6Graph     struct{}          `json:"ipv6_graph"`
-		CombinedGraph struct{}          `json:"combined_graph"`
+		Ipv4Graph     string            `json:"ipv4_graph"`
+		Ipv6Graph     string            `json:"ipv6_graph"`
+		CombinedGraph string            `json:"combined_graph"`
 	} `json:"data"`
 	Metadata Metadata `json:"@meta"`
 }
