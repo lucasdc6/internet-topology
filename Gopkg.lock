@@ -120,6 +120,7 @@
     "github.com/openrdap/rdap",
     "github.com/pborman/getopt/v2",
     "github.com/thoas/go-funk",
+    "gonum.org/v1/gonum/graph",
     "gonum.org/v1/gonum/graph/encoding/dot",
     "gonum.org/v1/gonum/graph/simple",
     "gonum.org/v1/gonum/graph/traverse",
