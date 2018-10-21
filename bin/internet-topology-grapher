@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+./internet-topology --asn $1 --ix --full --silent | xargs -I {} draw/draw.py --input {} --output /tmp/some

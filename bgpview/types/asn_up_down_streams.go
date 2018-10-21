@@ -6,7 +6,7 @@ type AsnUpDownstream struct {
 	Name        string   `json:"name"`
 	Description string   `json:"description"`
 	CountryCode string   `json:"country_code"`
-	BgpPaths    []string `json:"bgp_paths"`
+  BgpPaths    []string `json:"bgp_paths"`
 }
 
 // AsnUpstreams - Asn upstreams, use AsnUpDownstream

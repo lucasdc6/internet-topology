@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/lucasdc6/internet-topology/bgpview/api"
 	"github.com/lucasdc6/internet-topology/environment"
-	"github.com/lucasdc6/internet-topology/utils"
+	"github.com/lucasdc6/internet-topology/options"
 	"github.com/pborman/getopt/v2"
 	"gonum.org/v1/gonum/graph"
 	"gonum.org/v1/gonum/graph/encoding/dot"
@@ -50,19 +50,13 @@ func main() {
 			fmt.Printf("Quering for ASN: %d\n", *optAsn)
 		}
 		as := api.GetAsnUpstreams(*optAsn)
-		for _, upstream := range as.Data.Ipv4Upstreams {
-			utils.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
-		}
+		options.AddToGraph(g, as.Data.Ipv4Upstreams, *optAsn, *optDeepLevel)
 		if *optFull {
 			b := traverse.BreadthFirst{
 				Visit: func(u, v graph.Node) {
 					if v.ID() != int64(*optAsn) {
 						if !*optPipeMode {
 							fmt.Printf("Quering for ASN: %d\n", v)
-						}
-						as := api.GetAsnUpstreams(int(v.ID()))
-						for _, upstream := range as.Data.Ipv4Upstreams {
-							utils.AddToGraph(g, upstream.BgpPaths, *optDeepLevel+1)
 						}
 					}
 				}}
@@ -96,13 +90,20 @@ func main() {
 			g.SetEdge(simple.Edge{F: simple.Node(*optAsn), T: simple.Node(asPeer.Asn)})
 		}
 	}
-	if *optPipeMode {
-		fmt.Printf("%s", utils.GraphToData(g, *optAsn))
-	} else {
-		fmt.Printf("Saving file in %s\n", *optOutput)
-	}
 
-	str, _ := dot.Marshal(g, "", "", "  ", false)
-	ioutil.WriteFile(fmt.Sprintf("%s.dot", *optOutput), str, 0644)
-	ioutil.WriteFile(fmt.Sprintf("%s.data", *optOutput), []byte(utils.GraphToData(g, *optAsn)), 0644)
+  if len(g.Edges()) > 0 {
+    if *optPipeMode {
+      fmt.Printf("%s", options.GraphToData(g, *optAsn))
+    } else {
+      fmt.Printf("Saving files:\n\t%s.dot\n\t%s.data\n", *optOutput, *optOutput)
+    }
+
+    str, _ := dot.Marshal(g, "", "", "  ", false)
+    ioutil.WriteFile(fmt.Sprintf("%s.dot", *optOutput), str, 0644)
+    ioutil.WriteFile(fmt.Sprintf("%s.data", *optOutput), []byte(options.GraphToData(g, *optAsn)), 0644)
+  } else {
+    if ! *optPipeMode {
+      fmt.Println("Nothing to show")
+    }
+  }
 }
