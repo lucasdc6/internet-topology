@@ -14,6 +14,6 @@ folders:
 clean:
 	- rm -r $(DRAW_OUTPUT_DATA) internet-topology
 
-make_graph: all
+graph: all
 	./internet-topology --asn=5692 -pi
 	dot -Tsvg /tmp/internet-topology.dot > /tmp/internet-topology.svg
