@@ -1,8 +1,0 @@
-digraph {
-  // Node definitions.
-  5692;
-  10834;
-
-  // Edge definitions.
-  5692 -> 10834;
-}
