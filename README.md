@@ -13,7 +13,7 @@ Status](https://travis-ci.org/lucasdc6/internet-topology.svg?branch=master)](htt
 
 - dep v0.5.0 or later
 - make
-- go 1.11.1 or later
+- go 1.10.4 or later
 
 ### Steps
 
