@@ -1,7 +1,21 @@
+// Generate the internet's topology starting from a specific AS.
+//
+// Examples:
+//
+// 1) Basic Example:
+//  $ internet-topology --asn=3
+// 2) Example with deep 3:
+//  $ internet-topolofy --asn=3 --deep=3
+// 3) Example with IX connections:
+//  $ internet-topology --asn=3 --deep=3 --ix
+// For full documentation, use the flag --help
 package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
+
 	"github.com/lucasdc6/internet-topology/bgpview/api"
 	"github.com/lucasdc6/internet-topology/environment"
 	"github.com/lucasdc6/internet-topology/options"
@@ -10,8 +24,6 @@ import (
 	"gonum.org/v1/gonum/graph/encoding/dot"
 	"gonum.org/v1/gonum/graph/simple"
 	"gonum.org/v1/gonum/graph/traverse"
-	"io/ioutil"
-	"os"
 )
 
 func main() {
@@ -23,8 +35,8 @@ func main() {
 	optPeers := getopt.BoolLong("peers", 'p', "Show Peers connections")
 	optHelp := getopt.BoolLong("help", 'h', "Show this help")
 	optFull := getopt.BoolLong("full", 'f', "Show all the connections")
-	optDeepLevel := getopt.IntLong("deep", 0, 99, "Set the deep level. Default to full path")
-	optOutput := getopt.StringLong("output", 'o', "/tmp/internet-topology", "Set the output file. Default to /tmp/internet-topology")
+	optDeepLevel := getopt.IntLong("deep", 0, 1, "Set the deep level. Default to full path")
+	optOutput := getopt.StringLong("output", 'o', "/tmp/internet-topology", "Set the output file. Default to /tmp/internet-topology[.dot|.data]")
 
 	// Parse
 	getopt.Parse()
@@ -70,7 +82,7 @@ func main() {
 		asIxs := api.GetAsnIxs(*optAsn)
 		for _, asIx := range asIxs.Data {
 			if !*optPipeMode {
-				fmt.Printf("Quering for IX (%s) members: %d\n", asIx.Name, asIx.IxId)
+				fmt.Printf("Quering for IX %s (%d)\n", asIx.Name, asIx.IxId)
 			}
 			ix := api.GetIx(asIx.IxId)
 			for _, member := range ix.Data.Members {
@@ -91,19 +103,19 @@ func main() {
 		}
 	}
 
-  if len(g.Edges()) > 0 {
-    if *optPipeMode {
-      fmt.Printf("%s", options.GraphToData(g, *optAsn))
-    } else {
-      fmt.Printf("Saving files:\n\t%s.dot\n\t%s.data\n", *optOutput, *optOutput)
-    }
+	if len(g.Edges()) > 0 {
+		if *optPipeMode {
+			fmt.Printf("%s", options.GraphToData(g, *optAsn))
+		} else {
+			fmt.Printf("Saving files:\n\t%s.dot\n\t%s.data\n", *optOutput, *optOutput)
+		}
 
-    str, _ := dot.Marshal(g, "", "", "  ", false)
-    ioutil.WriteFile(fmt.Sprintf("%s.dot", *optOutput), str, 0644)
-    ioutil.WriteFile(fmt.Sprintf("%s.data", *optOutput), []byte(options.GraphToData(g, *optAsn)), 0644)
-  } else {
-    if ! *optPipeMode {
-      fmt.Println("Nothing to show")
-    }
-  }
+		str, _ := dot.Marshal(g, "", "", "  ", false)
+		ioutil.WriteFile(fmt.Sprintf("%s.dot", *optOutput), str, 0644)
+		ioutil.WriteFile(fmt.Sprintf("%s.data", *optOutput), []byte(options.GraphToData(g, *optAsn)), 0644)
+	} else {
+		if !*optPipeMode {
+			fmt.Println("Nothing to show")
+		}
+	}
 }
