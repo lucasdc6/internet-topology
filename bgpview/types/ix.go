@@ -25,14 +25,14 @@ type Ix struct {
 		PolicyPhone  string     `json:"policy_phone"`
 		City         string     `json:"city"`
 		CountryCode  string     `json:"country_code"`
-		UrlStats     string     `json:"url_stats,omitempty"`
+		URLStats     string     `json:"url_stats,omitempty"`
 		MembersCount int        `json:"members_count"`
 		Members      []IxMember `json:"members"`
 	} `json:"data"`
 	Metadata Metadata `json:"@meta"`
 }
 
-// ToJson - Print Ix with json format
-func (ix Ix) ToJson() string {
-	return toJson(ix)
+// toJSON - Print Ix with json format
+func (ix Ix) toJSON() string {
+	return toJSON(ix)
 }

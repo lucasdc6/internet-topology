@@ -19,7 +19,7 @@ type AsnPeers struct {
 	Metadata Metadata `json:"@meta"`
 }
 
-// ToJson - Print AsnPeers with json format
-func (asn AsnPeers) ToJson() string {
-	return toJson(asn)
+// toJSON - Print AsnPeers with json format
+func (asn AsnPeers) toJSON() string {
+	return toJSON(asn)
 }

@@ -6,7 +6,7 @@ type AsnUpDownstream struct {
 	Name        string   `json:"name"`
 	Description string   `json:"description"`
 	CountryCode string   `json:"country_code"`
-  BgpPaths    []string `json:"bgp_paths"`
+	BgpPaths    []string `json:"bgp_paths"`
 }
 
 // AsnUpstreams - Asn upstreams, use AsnUpDownstream
@@ -34,12 +34,12 @@ type AsnDownstreams struct {
 	Metadata Metadata `json:"@meta"`
 }
 
-// ToJson - Print AsnUpstreams with json format
-func (asn AsnUpstreams) ToJson() string {
-	return toJson(asn)
+// toJSON - Print AsnUpstreams with json format
+func (asn AsnUpstreams) toJSON() string {
+	return toJSON(asn)
 }
 
-// ToJson - Print AsnDownstreams with json format
-func (asn AsnDownstreams) ToJson() string {
-	return toJson(asn)
+// toJSON - Print AsnDownstreams with json format
+func (asn AsnDownstreams) toJSON() string {
+	return toJSON(asn)
 }

@@ -2,10 +2,11 @@ package api
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/lucasdc6/internet-topology/bgpview/types"
 	"github.com/lucasdc6/internet-topology/environment"
 	"github.com/lucasdc6/internet-topology/utils"
-	"os"
 )
 
 var debug = environment.GetDebugFor("bgpview") || environment.GetDebug()
@@ -57,7 +58,7 @@ func GetAsnUpstreams(id int) (response types.AsnUpstreams) {
 	url := fmt.Sprintf("https://api.bgpview.io/asn/%d/upstreams", id)
 	err := utils.GetGeneric(url, &response)
 	if err != nil {
-    fmt.Println(err)
+		fmt.Println(err)
 		fmt.Printf("Error quering\n")
 		os.Exit(2)
 	}

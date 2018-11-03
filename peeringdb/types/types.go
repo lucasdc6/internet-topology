@@ -129,7 +129,7 @@ type Netfac struct{}
 // Netixlan - Netixlan
 type Netixlan struct {
 	Id       int64  `json:"id"`
-	IxId     int64  `json:"ix_id"`
+	IxID     int64  `json:"ix_id"`
 	Name     string `json:"name"`
 	IxlanId  int64  `json:"ixlan_id"`
 	Notes    string `json:"notes"`

@@ -14,7 +14,7 @@ type Prefix struct {
 	StatusMessage string `json:"status_message"`
 	Data          struct {
 		Prefix string `json:"prefix"`
-		Ip     string `json:"ip"`
+		IP     string `json:"ip"`
 		Cidr   int    `json:"cidr"`
 		Asns   []struct {
 			Asn             int              `json:"asn"`
@@ -37,7 +37,7 @@ type Prefix struct {
 		RirAllocation struct {
 			RirName          string `json:"rir_name"`
 			CountryCode      string `json:"country_code"`
-			Ip               string `json:"ip"`
+			IP               string `json:"ip"`
 			Cidr             int    `json:"cidr"`
 			Prefix           string `json:"prefix"`
 			DateAllocated    string `json:"date_allocated"`
@@ -59,7 +59,7 @@ type Prefix struct {
 	Metadata Metadata `json:"@meta"`
 }
 
-// ToJson - Print Prefix with json format
-func (prefix Prefix) ToJson() string {
-	return toJson(prefix)
+// toJSON - Print Prefix with json format
+func (prefix Prefix) toJSON() string {
+	return toJSON(prefix)
 }

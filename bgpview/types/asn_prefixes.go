@@ -3,7 +3,7 @@ package types
 // AsnPrefix - Asn prefix, used by AsnPrefixes
 type AsnPrefix struct {
 	Prefix      string `json:"prefix"`
-	Ip          string `json:"ip"`
+	IP          string `json:"ip"`
 	Cidr        int64  `json:"cidr"`
 	RoaStatus   string `json:"roa_status"`
 	Name        string `json:"name"`
@@ -11,7 +11,7 @@ type AsnPrefix struct {
 	CountryCode string `json:"country_code"`
 	Parent      struct {
 		Prefix           string `json:"prefix"`
-		Ip               string `json:"ip"`
+		IP               string `json:"ip"`
 		Cidr             int64  `json:"cidr"`
 		RirName          string `json:"rir_name"`
 		AllocationStatus string `json:"allocation_status"`
@@ -23,13 +23,13 @@ type AsnPrefixes struct {
 	Status        string `json:"status"`
 	StatusMessage string `json:"status_message"`
 	Data          struct {
-		Ipv4Prefixes []AsnPrefix `json:"ipv4_prefixes"`
-		Ipv6Prefixes []AsnPrefix `json:"ipv6_prefixes"`
+		IPv4Prefixes []AsnPrefix `json:"ipv4_prefixes"`
+		IPv6Prefixes []AsnPrefix `json:"ipv6_prefixes"`
 	} `json:"data"`
 	Metadata Metadata `json:"@meta"`
 }
 
-// ToJson - Print AsnPrefixes with json format
-func (asn AsnPrefixes) ToJson() string {
-	return toJson(asn)
+// toJSON - Print AsnPrefixes with json format
+func (asn AsnPrefixes) toJSON() string {
+	return toJSON(asn)
 }
