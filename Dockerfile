@@ -9,8 +9,11 @@ RUN go get -u github.com/golang/dep/... \
     && dep ensure -v \
     && make
 
-FROM alpine
+CMD [ "/go/src/github.com/lucasdc6/internet-topology/internet-topology" ]
+ENTRYPOINT [ "/go/src/github.com/lucasdc6/internet-topology/internet-topology" ]
 
-COPY --from=builder /go/src/github.com/lucasdc6/internet-topology/internet-topology /app/internet-topology
+#FROM alpine
 
-CMD [ "/app/internet-topology" ]
+#COPY --from=builder /go/src/github.com/lucasdc6/internet-topology/internet-topology /app/internet-topology
+
+#CMD [ "/app/internet-topology" ]

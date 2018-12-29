@@ -50,14 +50,6 @@
   revision = "2b5b3bfb099b7da3e2f433966f8ab1d5803e0876"
 
 [[projects]]
-  digest = "1:92d68f6e77198b5da8d32e13283d75d2ba4fe01f369bc63cdf48c77cc138bfaf"
-  name = "github.com/thoas/go-funk"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "e2f8da694c9c4fa123eea42cb0d6d47e08f11ff6"
-  version = "0.3"
-
-[[projects]]
   branch = "master"
   digest = "1:1d18232beafad93272158a9e9810f417b418c2f967e0506f3e2609c10310fe31"
   name = "golang.org/x/crypto"
@@ -70,7 +62,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f1b2366e14935fda456dccd2628d0818f55b8c00d73414d84bf4d4e96e236fdd"
+  digest = "1:54619412aa0b249d90e781cb068efd266c04a73872d0752705034f804fe3547c"
   name = "gonum.org/v1/gonum"
   packages = [
     "blas",
@@ -87,12 +79,10 @@
     "graph/formats/dot/internal/lexer",
     "graph/formats/dot/internal/parser",
     "graph/formats/dot/internal/token",
-    "graph/internal/linear",
     "graph/internal/ordered",
     "graph/internal/set",
     "graph/internal/uid",
     "graph/simple",
-    "graph/traverse",
     "internal/asm/c128",
     "internal/asm/f32",
     "internal/asm/f64",
@@ -119,11 +109,8 @@
   input-imports = [
     "github.com/openrdap/rdap",
     "github.com/pborman/getopt/v2",
-    "github.com/thoas/go-funk",
-    "gonum.org/v1/gonum/graph",
     "gonum.org/v1/gonum/graph/encoding/dot",
     "gonum.org/v1/gonum/graph/simple",
-    "gonum.org/v1/gonum/graph/traverse",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
