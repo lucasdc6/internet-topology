@@ -20,3 +20,9 @@ Status](https://travis-ci.org/lucasdc6/internet-topology.svg?branch=master)](htt
 ```bash
 $ make
 ```
+
+### Build docker
+
+```bash
+$ make docker
+```
