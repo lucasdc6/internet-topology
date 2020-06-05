@@ -1,19 +1,14 @@
-FROM golang:1.10.4 as builder
+FROM golang:1.13.5 as builder
 
 WORKDIR /go/src/github.com/lucasdc6/internet-topology
 
 ADD . /go/src/github.com/lucasdc6/internet-topology
 
 
-RUN go get -u github.com/golang/dep/... \
-    && dep ensure -v \
-    && make
+RUN make small
 
-CMD [ "/go/src/github.com/lucasdc6/internet-topology/internet-topology" ]
-ENTRYPOINT [ "/go/src/github.com/lucasdc6/internet-topology/internet-topology" ]
+FROM busybox
 
-#FROM alpine
+COPY --from=builder /go/src/github.com/lucasdc6/internet-topology/internet-topology /
 
-#COPY --from=builder /go/src/github.com/lucasdc6/internet-topology/internet-topology /app/internet-topology
-
-#CMD [ "/app/internet-topology" ]
+ENTRYPOINT [ "/internet-topology" ]

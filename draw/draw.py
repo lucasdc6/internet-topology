@@ -6,11 +6,11 @@ import sys, getopt
 from string import Template
 
 def show_help():
-    print 'Usage:\n'
-    print '    -f | --format    Set format. Default to "pdf" - Availables (pdf, png)'
-    print '    -i | --input     Set input file (required)'
-    print '    -o | --output    Set output file (required)'
-    print '    -h               Show this help'
+    print('Usage:\n')
+    print('    -f | --format    Set format. Default to "pdf" - Availables (pdf, png)')
+    print('    -i | --input     Set input file (required)')
+    print('    -o | --output    Set output file (required)')
+    print('    -h               Show this help')
 
 inputfile = ''
 outputfile = ''
@@ -31,12 +31,12 @@ for opt, arg in opts:
         outputfile = arg
     elif opt == '--format':
         if arg not in ("png", "pdf"):
-            print 'ERROR: Incorrect format - Availables (pdf, png)\n'
+            print('ERROR: Incorrect format - Availables (pdf, png)\n')
             show_help()
             sys.exit(3)
         fileformat = arg
 if (outputfile == ''):
-    print 'ERROR: Missing input or output file\n'
+    print('ERROR: Missing input or output file\n')
     show_help()
     sys.exit(1)
 
@@ -45,7 +45,7 @@ if (inputfile == ''):
 else:
     infile = open(inputfile)
 
-print "Reading data..."
+print("Reading data...")
 data = []
 for line in infile:
     if (line=='q'):
@@ -57,12 +57,12 @@ outputfile = outputfiletemplate.substitute(path=outputfile, format=fileformat)
 g = nx.Graph()
 
 
-print "Making graph..."
+print("Making graph...")
 g.add_edges_from(data)
 pos = nx.spring_layout(g, k=0.3*1/np.sqrt(len(g.nodes())), iterations=1)
 plt.figure(3, figsize=(30, 30))
 nx.draw(g, pos=pos)
 nx.draw_networkx_labels(g, pos=pos)
 
-print "Saving at", outputfile
+print("Saving at", outputfile)
 plt.savefig(outputfile)

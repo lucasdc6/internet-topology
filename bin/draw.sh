@@ -7,7 +7,7 @@ function help() {
     Usage:
       $0 <ASN> <DEEP_LEVEL>
 
-    ASN       = autonomous system number
+    ASN         = autonomous system number
     DEEP_LEVEL  = upstream deep level (See internet-topology help)
 HELP
 }
