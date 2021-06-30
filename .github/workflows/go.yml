@@ -40,4 +40,4 @@ jobs:
       uses: docker/build-push-action@v2.5.0
       with:
         push: true
-        tags: ghcr.io.lucasdc6/internet-topology:latest
+        tags: ghcr.io/lucasdc6/internet-topology:latest
