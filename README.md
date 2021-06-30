@@ -2,8 +2,6 @@
 
 [![Go Report
 Card](https://goreportcard.com/badge/github.com/lucasdc6/internet-topology)](https://goreportcard.com/report/github.com/lucasdc6/internet-topology)
-[![Build
-Status](https://travis-ci.org/lucasdc6/internet-topology.svg?branch=master)](https://travis-ci.org/lucasdc6/internet-topology)
 [![GoDoc](https://godoc.org/github.com/lucasdc6/internet-topology?status.svg)](https://godoc.org/github.com/lucasdc6/internet-topology)
 
 
@@ -11,18 +9,43 @@ Status](https://travis-ci.org/lucasdc6/internet-topology.svg?branch=master)](htt
 
 ### Requeriments
 
-- dep v0.5.0 or later
 - make
-- go 1.10.4 or later
+- go 1.16.2 or later
+- Graphviz (optional)
+  - Alternative https://dreampuf.github.io/GraphvizOnline
 
 ### Steps
 
 ```bash
-$ make
+make
+# or
+make small
 ```
 
 ### Build docker
 
 ```bash
-$ make docker
+make docker
+```
+
+
+## Usage
+
+### binary
+
+Compile or download from actions, then run
+
+```console
+./internet-topology --asn=5692 --deep=2 --ix --peers
+dot -Tsvg /tmp/internet-topology.dot > unlp.svg
+```
+
+
+### Docker image
+
+```console
+docker run --rm -it \
+  -v $PWD/data:/data \
+  ghcr.io/lucasdc6/internet-topology:latest --asn=5692 --deep=2 --ix --peers -o /data/unlp
+dot -Tsvg data/unlp.dot > unlp.svg
 ```
