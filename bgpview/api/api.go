@@ -52,10 +52,10 @@ func GetAsnPeers(id int) (response types.AsnPeers) {
 
 // GetAsnUpstreams - Get as upstreams from as number (id)
 func GetAsnUpstreams(id int) (response types.AsnUpstreams) {
-	if debug {
-		fmt.Printf("GetAsnUpstreams query with: %d\n", id)
-	}
 	url := fmt.Sprintf("https://api.bgpview.io/asn/%d/upstreams", id)
+	if debug {
+		fmt.Printf("GetAsnUpstreams query with: %d from %s\n", id, url)
+	}
 	err := utils.GetGeneric(url, &response)
 	if err != nil {
 		fmt.Println(err)

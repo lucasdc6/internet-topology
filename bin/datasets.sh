@@ -10,6 +10,8 @@ HELP
   exit 1
 fi
 
+# http://ftp.lacnic.net/pub/stats/lacnic/RIR-Statistics-Exchange-Format.txt
+
 URLS=(
 ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest
 ftp.ripe.net/ripe/stats/delegated-ripencc-latest

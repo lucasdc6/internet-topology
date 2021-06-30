@@ -2,29 +2,47 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/lucasdc6/internet-topology/environment"
 )
+
+var debug = environment.GetDebugFor("bgpview") || environment.GetDebug()
 
 // GetGeneric - Get request to url with unmarshall in res
 func GetGeneric(url string, res interface{}) (error error) {
-	resp, err := http.Get(url)
-	if err != nil {
-		error = err
+	if debug {
+		fmt.Printf("GetGeneric from: %s\n", url)
 	}
 
+	resp, err := http.Get(url)
+	if err != nil {
+		return error
+	}
+
+	if debug {
+		fmt.Printf("Read data\n")
+	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		error = err
+		return error
 	}
 
+	if debug {
+		fmt.Printf("Unmarshal data\n")
+	}
 	err = json.Unmarshal([]byte(body), &res)
 
 	if err != nil {
-		error = err
+		return error
 	}
 
-	return error
+	if debug {
+		fmt.Printf("Finish GetGeneric\n")
+	}
+	return nil
 }

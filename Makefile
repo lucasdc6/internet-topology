@@ -1,6 +1,8 @@
 .PHONY: all test
 
-all: test
+all: test build
+
+build:
 	go build
 
 small:
