@@ -17,7 +17,7 @@ func GetGeneric(url string, res interface{}) (error error) {
 	if debug {
 		fmt.Printf("GetGeneric from: %s\n", url)
 	}
-	time.Sleep(1 * time.Second)
+	time.Sleep(500 * time.Millisecond)
 
 	resp, err := http.Get(url)
 	if err != nil {
