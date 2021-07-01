@@ -28,6 +28,7 @@ func main() {
 	optPipeMode := getopt.BoolLong("pipe", 0, "Set pipe mode.")
 	optAsn := getopt.IntLong("asn", 0, -1, "Set AS number")
 	optIx := getopt.BoolLong("ix", 'i', "Show IX connections")
+	optIxMembers := getopt.BoolLong("ix-members", 'm', "Show IX Members")
 	optPeers := getopt.BoolLong("peers", 'p', "Show Peers connections")
 	optHelp := getopt.BoolLong("help", 'h', "Show this help")
 	optDeepLevel := getopt.IntLong("deep", 0, 1, "Set the deep level. Default to full path")
@@ -50,7 +51,7 @@ func main() {
 	}
 
 	if *optIx {
-		options.HandleIxOption(*optPipeMode, *optAsn, g)
+		options.HandleIxOption(*optPipeMode, *optIxMembers, *optAsn, g)
 	}
 
 	if *optPeers {

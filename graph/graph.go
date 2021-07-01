@@ -3,7 +3,6 @@ package graph
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/lucasdc6/internet-topology/bgpview/api"
 	"github.com/lucasdc6/internet-topology/bgpview/types"
@@ -33,7 +32,6 @@ func AddToGraph(g *graph.DirectedGraph, peers []types.AsnUpDownstream, from, dee
 		g.SetEdge(graph.Edge{F: graph.Node(from), T: graph.Node(peer.Asn)})
 		if deepLevel != 0 {
 			fmt.Printf("Quering for ASN: %d\n", peer.Asn)
-			time.Sleep(1 * time.Second)
 			as := api.GetAsnUpstreams(peer.Asn)
 			AddToGraph(g, as.Data.Ipv4Upstreams, peer.Asn, deepLevel-1)
 		} else {
